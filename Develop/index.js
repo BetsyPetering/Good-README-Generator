@@ -46,11 +46,14 @@ function init() {
         type: "input",
         name: "tests",
         message: "What commands can users run to test this?"
+      },
+      {
+        type: "input",
+        name: "twitter",
+        message: "What is your Twitter account name?"
       }
     ])
     .then(function(data) {
-      console.log("Success!  " + data.description);
-
       api.getUser(data.gitName).then(function(res) {
         var somfin = ` # ${data.title}
 
@@ -64,6 +67,7 @@ ${data.description}
 * [Contributing](#contributing)
 * [License](#license)
 * [Tests](#tests)
+* [Twitter](#twitter)
 * [Questions](#questions)
 
 ## Installation
@@ -82,6 +86,9 @@ ${data.license}
 ## Tests
 ${data.tests}
 
+## Follow on Twitter
+[![Twitter Follow](https://img.shields.io/twitter/follow/${data.twitter}?label=Follow&style=for-the-badge)](https://twitter.com/${data.twitter})
+
 ## Questions
 <img src="${res.data.avatar_url}" height="150px" width="150px">
 
@@ -89,7 +96,6 @@ If you have any questions, contact: ${res.data.email}
 Or contact them through their GitHub: [${data.gitName}](${res.data.html_url})
             `;
         fs.writeFile("Profile.MD", somfin, function(err) {});
-        console.log(res);
       });
     });
 }
